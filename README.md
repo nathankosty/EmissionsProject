@@ -36,11 +36,20 @@ erDiagram
 
 Running `analyze.py` produces five charts:
 
-- `population_chart.png` — Top 10 most populous countries (2021)
-- `co2_chart.png` — Top 10 CO2 emitters per capita (2021)
-- `growth_chart.png` — Population growth for China, India, and the USA since 1960
-- `co2_growth_chart.png` — CO2 emissions over time for China, India, and the USA since 1960
-- `scatter_chart.png` — Population vs total CO2 emissions by country (2021), with top 10 labeled
+### Top 10 Most Populous Countries (2021)
+![Population Chart](population_chart.png)
+
+### Top 10 CO2 Emitters Per Capita (2021)
+![CO2 Per Capita Chart](co2_chart.png)
+
+### Population Growth: China, India, USA (1960–Present)
+![Population Growth Chart](growth_chart.png)
+
+### CO2 Emissions Over Time: China, India, USA (1960–Present)
+![CO2 Growth Chart](co2_growth_chart.png)
+
+### Population vs Total CO2 Emissions (2021)
+![Scatter Chart](scatter_chart.png)
 
 ## Project Structure
 
