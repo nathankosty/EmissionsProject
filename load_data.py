@@ -1,31 +1,24 @@
-import os
 import pandas as pd
 import mysql.connector
 
-# Database connection — set these environment variables before running:
-#   export DB_HOST=localhost
-#   export DB_USER=root
-#   export DB_PASSWORD=yourpassword
-#   export DB_NAME=world_data
+# --- UPDATE THIS ---
 conn = mysql.connector.connect(
-    host=os.environ.get("DB_HOST", "localhost"),
-    user=os.environ.get("DB_USER", "root"),
-    password=os.environ["DB_PASSWORD"],
-    database=os.environ.get("DB_NAME", "world_data")
+    host="localhost",
+    user="root",
+    password="Louie114",
+    database="world_data"
 )
 cursor = conn.cursor()
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 # --- Load population CSV ---
-pop_df = pd.read_csv(os.path.join(BASE_DIR, "population", "population.csv"))
+pop_df = pd.read_csv(r"/Users/nathankostynick/EmissionsProject/population/population.csv")
 pop_df.columns = ['country_name', 'country_code', 'year', 'population']
 pop_df = pop_df.dropna(subset=['country_code', 'population'])
 pop_df['population'] = pop_df['population'].astype(int)
 
 
 # --- Load CO2 CSV ---
-co2_df = pd.read_csv(os.path.join(BASE_DIR, "owid-co2-data.csv"))
+co2_df = pd.read_csv(r"/Users/nathankostynick/EmissionsProject/owid-co2-data.csv")
 co2_df = co2_df[['country', 'iso_code', 'year', 'co2', 'co2_per_capita']]
 co2_df.columns = ['country_name', 'country_code', 'year', 'co2', 'co2_per_capita']
 co2_df = co2_df.dropna(subset=['country_code'])
