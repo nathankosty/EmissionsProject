@@ -7,51 +7,40 @@ A Python project that loads global population and CO2 emissions data into a MySQ
 - **Population data** — `population/population.csv` (World Bank)
 - **CO2 emissions data** — `owid-co2-data.csv` ([Our World in Data](https://github.com/owid/co2-data))
 
-## Prerequisites
+## Database Schema
 
-- Python 3.8+
-- MySQL server running locally (or remotely)
+```mermaid
+erDiagram
+    countries {
+        varchar country_code PK
+        varchar country_name
+    }
+    population {
+        int id PK
+        varchar country_code FK
+        int year
+        bigint population
+    }
+    co2_emissions {
+        int id PK
+        varchar country_code FK
+        int year
+        float co2
+        float co2_per_capita
+    }
+    countries ||--o{ population : has
+    countries ||--o{ co2_emissions : has
+```
 
-## Setup
+## Visualizations
 
-1. **Install Python dependencies:**
+Running `analyze.py` produces five charts:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Create the database and tables:**
-
-   ```bash
-   mysql -u root -p < worldProject.sql
-   ```
-
-   (You'll need to create the `world_data` database first: `CREATE DATABASE world_data;`)
-
-3. **Set your database password as an environment variable:**
-
-   ```bash
-   export DB_PASSWORD=yourpassword
-   ```
-
-   You can also optionally set `DB_HOST`, `DB_USER`, and `DB_NAME` (they default to `localhost`, `root`, and `world_data`).
-
-4. **Load the data into MySQL:**
-
-   ```bash
-   python load_data.py
-   ```
-
-5. **Generate the charts:**
-
-   ```bash
-   python analyze.py
-   ```
-
-   This produces three PNG charts in the project directory:
-   - `population_chart.png` — Top 10 most populous countries (2021)
-   - `co2_chart.png` — Top 10 CO2 emitters per capita (2021)
-   - `growth_chart.png` — Population growth for China, India, and the USA since 1960
+- `population_chart.png` — Top 10 most populous countries (2021)
+- `co2_chart.png` — Top 10 CO2 emitters per capita (2021)
+- `growth_chart.png` — Population growth for China, India, and the USA since 1960
+- `co2_growth_chart.png` — CO2 emissions over time for China, India, and the USA since 1960
+- `scatter_chart.png` — Population vs total CO2 emissions by country (2021), with top 10 labeled
 
 ## Project Structure
 
